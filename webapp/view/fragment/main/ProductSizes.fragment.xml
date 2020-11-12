@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.uxap" xmlns:m="sap.m" xmlns:t="sap.ui.table" xmlns:core="sap.ui.core">
+	<ObjectPageSection showTitle="false">
+		<subSections>
+			<ObjectPageSubSection>
+				<t:Table id="tableSizeEntry" alternateRowColors="true" selectionMode="None"
+					columns="{path:'worklistViewModel>/columns', factory:'._sizeEntryTableColumnFactory'}" rows="{worklistViewModel>/rows}"
+					enableColumnReordering="false" rowActionCount="1" visibleRowCount="4">
+					<!--visibleRowCount="{= ${worklistViewModel>/rows}.length }" -->
+					<t:extension>
+						<m:OverflowToolbar>
+							<!--<m:Title text="{i18n>sizes}"/>-->
+							<!--<m:Button icon="sap-icon://target-group" type="Transparent" text="Koli no tayin et" press="onButtonAssignKoliNo"/>-->
+							<m:CheckBox text="Mandallı Askı" valueState="Information" width="7.5rem" selected="{headerModel>/MandalliAski}"
+								visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}" editable="{viewModel>/editMode}"/>
+							<m:RadioButtonGroup id="rbg3" columns="5" valueState="Information" visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}">
+								<m:RadioButton id="RB3-1" text="Drop loop yok" selected="{headerModel>/DropLoopYok}" editable="{viewModel>/editMode}"/>
+								<m:RadioButton id="RB3-2" text="İkili drop loop" selected="{headerModel>/IkiliDropLoop}" editable="{viewModel>/editMode}"/>
+								<m:RadioButton id="RB3-3" text="Üçlü drop loop" selected="{headerModel>/UcluDropLoop}" editable="{viewModel>/editMode}"/>
+							</m:RadioButtonGroup>
+							<m:ToolbarSpacer/>
+							<m:Button icon="sap-icon://add" type="Transparent" press="onButtonAddLinePress" enabled="{viewModel>/editMode}"/>
+						</m:OverflowToolbar>
+					</t:extension>
+					<t:rowActionTemplate>
+						<t:RowAction>
+							<t:RowActionItem type="Delete" press="onDeleteRowList" visible="{viewModel>/editMode}"/>
+						</t:RowAction>
+					</t:rowActionTemplate>
+					<t:footer >
+						<m:Toolbar>
+							<m:Label text="Toplam adet" width="5rem"/>
+							<m:Input value="{headerModel>/ToplamAdet}" width="5rem" editable="false"/>
+							<m:Label text="Toplam ağırlık" width="7rem"/>
+							<m:Input value="{headerModel>/ToplamAgirlik}" width="5rem" editable="false"/>
+							<m:Label text="Askısız toplam ağırlık" width="9rem" visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}"/>
+							<m:Input value="{headerModel>/AskisizToplamAgirlikKg}" width="5rem" editable="false"
+								visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}"/>
+						</m:Toolbar>
+					</t:footer>
+				</t:Table>
+			</ObjectPageSubSection>
+			<ObjectPageSubSection>
+				<t:Table id="tableDefaultSize" alternateRowColors="true" selectionMode="None"
+					columns="{path:'worklistViewModel>/columnsDefault', factory:'._sizeDefaultTableColumnFactory'}" rows="{worklistViewModel>/rowsDefault}"
+					enableColumnReordering="false" rowActionCount="1" visibleRowCount="8"/>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+</core:FragmentDefinition>

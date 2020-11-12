@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+	<Dialog title="{= ${viewModel>/answerType} === 'O' ? ${i18n>approve} : ${i18n>reject} }">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+					adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:content>
+						<Label text="{i18n>date}"/>
+						<DatePicker placeholder="{i18n>date}"
+							value="{path:'viewModel>/answerPacking/Tarih',type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true} }"
+							class="sapUiSmallMarginBottom" enabled="{viewModel>/answerPackingEnableMode}"/>
+						<Label text="{i18n>reasonForReject}"/>
+						<ComboBox items="{/VhReasonForRejectSet}" selectedKey="{viewModel>/answerPacking/Lifsk}" showSecondaryValues="true"
+							visible="{= ${viewModel>/answerPackingEnableMode} === false || ${viewModel>/answerType} === 'R'}"
+							enabled="{viewModel>/answerPackingEnableMode}">
+							<core:ListItem key="{Lifsp}" text="{Vtext}" additionalText="{Lifsp}"/>
+						</ComboBox>
+						<Label text="{i18n>comment}"/>
+						<TextArea value="{viewModel>/answerPacking/String}" growing="true" growingMaxLines="7"
+							visible="{= ${viewModel>/answerPackingEnableMode} === false || ${viewModel>/answerType} === 'R'}"
+							enabled="{viewModel>/answerPackingEnableMode}"/>
+					</f:content>
+				</f:SimpleForm>
+			</VBox>
+		</content>
+		<buttons>
+			<Button text="{i18n>save}" press=".onSavePackingAnswer" type="Transparent" visible="{viewModel>/answerPackingEnableMode}"/>
+			<Button text="{i18n>cancel}" press=".closeDialog" type="Reject"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

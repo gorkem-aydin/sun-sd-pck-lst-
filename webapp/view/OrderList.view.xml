@@ -1,0 +1,25 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:sf="sap.ui.comp.smartfilterbar" xmlns:t="sap.ui.table"
+	xmlns="sap.f" xmlns:commons="sap.suite.ui.commons" xmlns:st="sap.ui.comp.smarttable" xmlns:sv="sap.ui.comp.smartvariants"
+	controllerName="com.sun.sd.packinglist.controller.OrderList" height="100%" xmlns:html="http://www.w3.org/1999/xhtml">
+	<DynamicPage showFooter="true">
+		<title>
+			<DynamicPageTitle>
+				<heading>
+					<sv:SmartVariantManagement id="sVariantManagement" persistencyKey="pKeyVariant"/>
+				</heading>
+			</DynamicPageTitle>
+		</title>
+		<header>
+			<DynamicPageHeader pinnable="false">
+				<sf:SmartFilterBar id="idSmartListFilterBar" considerSelectionVariants="true" entitySet="PackingSet" smartVariant="sVariantManagement"
+					persistencyKey="pkeyFilterBar" initialized="onInitSmartFilter"/>
+			</DynamicPageHeader>
+		</header>
+		<content>
+			<core:Fragment type="XML" fragmentName="com.sun.sd.packinglist.view.fragment.main.Content"/>
+		</content>
+		<footer>
+			<core:Fragment type="XML" fragmentName="com.sun.sd.packinglist.view.fragment.main.Footer"/>
+		</footer>
+	</DynamicPage>
+</mvc:View>

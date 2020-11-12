@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<OverflowToolbar>
+		<Button icon="sap-icon://alert" text="{=${message>/}.length}" visible="{=${message>/}.length > 0}" type="Emphasized"
+			press="onMessageButtonPress"/>
+		<ToolbarSpacer/>
+		<Button text="{i18n>approve}" press=".onConfirmPress('O')" type="Accept"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/confirmAuthority} &amp;&amp;( ${viewModel>/orderStatus} === '02' || ${viewModel>/orderStatus} === '05')}"/>
+		<Button text="{i18n>reject}" press=".onConfirmPress('R')" type="Reject"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/confirmAuthority} &amp;&amp;( ${viewModel>/orderStatus} === '02' || ${viewModel>/orderStatus} === '05')}"/>
+		<Button text="{i18n>undoApprove}" press=".onUndoRequestPress('A')" type="Accept" icon="sap-icon://undo"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/confirmAuthority} &amp;&amp;( ${viewModel>/orderStatus} === '04' || ${viewModel>/orderStatus} === '07')}"/>
+		<Button text="{i18n>undoReject}" press=".onUndoRequestPress('R')" type="Reject" icon="sap-icon://undo"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/confirmAuthority} &amp;&amp;( ${viewModel>/orderStatus} === '03' || ${viewModel>/orderStatus} === '06')}"/>
+		<Button text="{i18n>draftSave}" icon="sap-icon://task" press="onButtonDraftSavePress"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/orderStatus} === '' &amp;&amp; ${viewModel>/orderId} === '' &amp;&amp; ${viewModel>/editMode} }"/>
+		<Button text="{i18n>saveSend}" icon="sap-icon://save" press="onButtonSaveSendPress"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/editMode} &amp;&amp; ( ${viewModel>/orderStatus} === '03' || ${viewModel>/orderStatus} === '06' || ${viewModel>/orderStatus} === '01' || ${viewModel>/orderStatus} === '') }"/>
+		<Button text="{i18n>onCekiToYuklemeCeki}" icon="sap-icon://combine" press="onButtonOnCekiToYuklemeCekiPress"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/orderStatus} === '04' &amp;&amp; ${viewModel>/confirmAuthority} === false}"/>
+		<Button text="{i18n>delete}" icon="sap-icon://delete" press="onButtonDeliveryDeletePress"
+			visible="{= ${viewModel>/footerMode} === 'orderDetail' &amp;&amp; ${viewModel>/confirmAuthority} === false &amp;&amp; ${viewModel>/orderStatus} !== '' &amp;&amp; ${viewModel>/orderStatus} !== '04' &amp;&amp; ${viewModel>/orderStatus} !== '07'}"/>
+		<Button text="{i18n>save}" icon="sap-icon://save" press="onButtonDeliverySavePress"
+			enabled="{= ${viewModel>/footerMode} === 'orderList' &amp;&amp; ${viewModel>/exportAuth}}"
+			visible="{= ${viewModel>/footerMode} === 'orderList'}"/>
+	</OverflowToolbar>
+</core:FragmentDefinition>

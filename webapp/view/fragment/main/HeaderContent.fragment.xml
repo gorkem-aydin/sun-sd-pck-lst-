@@ -1,0 +1,92 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartForm="sap.ui.comp.smartform"
+	xmlns:smartField="sap.ui.comp.smartfield" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<l:Grid defaultSpan="XL3 L3 M6 S12">
+		<f:SimpleForm id="batchInformationForm" title="{= ${headerModel>/VbelnVl} ? ${headerModel>/VbelnVl} : ${i18n>baslikVerileri}}"
+			layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+			emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+			<f:content>
+				<Label text="{i18n>belgeTarihi}" visible="false"/>
+				<Text text="{ path:'headerModel>/BelgeTarihi', type:'sap.ui.model.type.Date' }" visible="false"/>
+				<Label text="{i18n>cekmeTarihi}" required="true"/>
+				<DatePicker value="{path:'headerModel>/CekmeTarihi', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"
+					width="10rem" editable="false"/>
+				<Label text="{i18n>yuklemeTarihi}" required="true"/>
+				<DatePicker
+					value="{path:'headerModel>/YuklemeTarihi', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true}}"
+					width="10rem" editable="{viewModel>/editMode}"/>
+				<Label text="{i18n>cekmeTuru}"/>
+				<Text text="{headerModel>/CekmeTuru} - {headerModel>/CekmeTuruTanim} "/>
+				<Label text="{i18n>koliSayisi}"/>
+				<Text text="{headerModel>/KoliSayisi}" width="5rem" visible="{= ${headerModel>/PaketlemeSekli} === 'K' ? true : false}"/>
+				<Label text="{i18n>bosKoliAgirligi}" required="true"/>
+				<Input value="{headerModel>/BosKoliAgirligi}" width="5rem" visible="{= ${headerModel>/PaketlemeSekli} === 'K' ? true : false}"
+					change="onChangeInputFields" editable="{viewModel>/editMode}"/>
+				<Label text="{i18n>toplamAskiSayisi}"/>
+				<Text text="{headerModel>/ToplamAskiSayisi}" width="5rem" visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}"/>
+				<Label text="{i18n>1mtAskiSayisi}" required="true"/>
+				<Input value="{headerModel>/MetreAski}" width="5rem" visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}"
+					editable="{viewModel>/editMode}"/>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm title="{i18n>dummy}" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4"
+			emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+			<Label text=""/>
+			<Text text=""/>
+			<Label text="{i18n>musteri}"/>
+			<Text text="{headerModel>/Kunnr} - {headerModel>/Name1}"/>
+			<Label text="{i18n>uretici}"/>
+			<Text text="{headerModel>/Uretici} - {headerModel>/UreticiTanimi}"/>
+			<Label text="{i18n>ureticiAdresi}"/>
+			<Text text="{headerModel>/UreticiAdresi}"/>
+			<Label text="{i18n>belgeDurumu}"/>
+			<Text text="{headerModel>/BelgeDurumu} - {headerModel>/BelgeDurumuTanim}"/>
+			<Label text="{i18n>koliEbat}" required="true"/>
+			<Input change="changeKoliEbat" value="{headerModel>/KoliEbat}" width="6rem"
+				visible="{= ${headerModel>/PaketlemeSekli} === 'K' ? true : false}" editable="{viewModel>/editMode}"/>
+			<Label text="{i18n>BaslangicKoliNo}"/>
+			<Input 	change="onChangeInputFields" value="{headerModel>/BaslangicKoliNo}" width="5rem" editable="{viewModel>/editMode}"/>
+	
+		<!--<Text 	editable="{viewModel>/editMode}" text="{headerModel>/BaslangicKoliNo} "/>-->
+		<!--<Text text="123"/>-->
+		<Label text="{i18n>askiGenisligi}" required="true"/>
+		<Input value="{headerModel>/AskiGenisligi}" width="5rem" visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}"
+			editable="{viewModel>/editMode}"/>
+		<Label text="{i18n>askiAgirligi}" required="true"/>
+		<Input value="{headerModel>/AskiAgirligi}" width="5rem" visible="{= ${headerModel>/PaketlemeSekli} === 'A' ? true : false}"
+			editable="{viewModel>/editMode}" change="onChangeInputFields"/>
+		<Label text="{i18n>birimAgirlik}"/>
+		<Button icon="sap-icon://add-product" press="onButtonUnitWeightPress" width="4.1rem" enabled="{viewModel>/editMode}"/>
+	</f:SimpleForm>
+	<f:SimpleForm id="customerOrderInformationForm" title="{i18n>orderInformation}" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4"
+		labelSpanM="4" labelSpanS="4" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
+		singleContainerFullSize="false">
+		<Label text="{i18n>vbelnVl}"/>
+		<!--<Text text="{headerModel>/VbelnVl}" visible="{= ${headerModel>/VbelnVl} === '' ? false : true}"/>-->
+		<Label text="{i18n>orderNo}"/>
+		<Text text="{headerModel>/OrderNo}"/>
+		<Label text="{i18n>model}"/>
+		<Text text="{headerModel>/Model} - {headerModel>/ModelAdi}"/>
+		<Label text="{i18n>varyant}"/>
+		<Text text="{headerModel>/Varyant}"/>
+		<Label text="{i18n>giysiGrubu}"/>
+		<Text text="{headerModel>/GiysiGrubu} - {headerModel>/GiysiGrubuTanim} "/>
+	</f:SimpleForm>
+	<f:SimpleForm title="{i18n>dummy}" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="4"
+		emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+		<Label text=""/>
+		<Text text=""/>
+		<Label text="{i18n>kumasTipi}"/>
+		<Text text="{headerModel>/KumasTipi}"/>
+		<Label text="{i18n>paketlemeSekli}"/>
+		<Text text="{headerModel>/PaketlemeSekli} - {headerModel>/PaketlemeSekliTanim}"/>
+		<Label text="{i18n>urunCinsi}"/>
+		<Text text="{headerModel>/UrunCinsi} - {headerModel>/UrunCinsiTanim} "/>
+		<Label text="{i18n>yikamaTalimati}" required="true"/>
+		<Input value="{headerModel>/YikamaTalimati}" editable="{viewModel>/editMode}" width="8rem"/>
+		<Label text="{i18n>altSiparisDetay}"/>
+		<Text text="{headerModel>/AltSiparisDetay} - {headerModel>/AltSiparisDetayTanim}"/>
+		<Label text="{i18n>hazirlayan}"/>
+		<Text text="{headerModel>/Hazirlayan}"/>
+	</f:SimpleForm>
+</l:Grid>
+</core:FragmentDefinition>

@@ -1,0 +1,115 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:sf="sap.ui.comp.smartfilterbar"
+	xmlns:t="sap.ui.table" xmlns:st="sap.ui.comp.smarttable" height="100%">
+	<st:SmartTable smartFilterId="idSmartListFilterBar" header="{i18n>packingList}" entitySet="PackingSet" enableAutoBinding="false"
+		requestAtLeastFields="Yetki,IhracatYetki,EditLine" ignoreFromPersonalisation="Yetki,IhracatYetki,EditLine" showTablePersonalisation="true"
+		useExportToExcel="true" id="smartTablePacking" smartVariant="sVariantManagement">
+		<st:customToolbar>
+			<OverflowToolbar design="Transparent">
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://edit" press="onEditLinePress" enabled="{viewModel>/exportAuth}"/>
+				<Button icon="sap-icon://add" press="onCreatePacking"/>
+			</OverflowToolbar>
+		</st:customToolbar>
+		<t:Table id="tablePacking" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCountMode="Auto"
+			rowSelectionChange="onTableRowSelectionChange" fixedColumnCount="2">
+			<t:columns>
+				<t:Column hAlign="Center" width="5rem">
+					<Label text=""/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Test", "columnIndex" : "0"}'/>
+					</t:customData>
+					<t:template>
+						<Button icon="sap-icon://display" press="onButtonDetailPress"/>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="5rem">
+					<Label text="{i18n>infoReject}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Ret", "columnIndex" : "12"}'/>
+					</t:customData>
+					<t:template>
+						<Button icon="sap-icon://employee-rejections" press="onDisplayRejectReasonPress"
+							visible="{= ${Zzoncekistatu} === '02' || ${Zzyuklemecekistatu} === '02'}" type="Reject"/>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="6rem">
+					<Label text="{i18n>volumTxt}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Volum", "columnIndex" : "42"}'/>
+					</t:customData>
+					<t:template>
+						<Input value="{Volum}"
+							editable="{= ${EditLine} &amp;&amp; ${PaketlemeSekli} === 'A' &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}"/>
+						<!--editable="{= ${EditLine} &amp;&amp; ${IhracatYetki} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}"/>-->
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="8rem">
+					<Label text="{/#Packing/Vsart/@sap:label}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Vsart", "columnIndex" : "46"}'/>
+					</t:customData>
+					<t:template>
+						<ComboBox items="{/Vh_VsartSet}" selectedKey="{Vsart}" showSecondaryValues="true"
+							enabled="{= ${EditLine} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}">
+							<core:ListItem key="{Vsart}" text="{Vsart}" additionalText="{Bezei}"/>
+						</ComboBox>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="6rem">
+					<Label text="{/#Packing/Zzservistipi/@sap:label}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Zzservistipi", "columnIndex" : "47"}'/>
+					</t:customData>
+					<t:template>
+						<ComboBox items="{/Vh_ZzservistipiSet}" selectedKey="{Zzservistipi}" showSecondaryValues="true"
+							enabled="{= ${EditLine} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}">
+							<core:ListItem key="{DomvalueL}" text="{DomvalueL}" additionalText="{Ddtext}"/>
+						</ComboBox>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="6rem">
+					<Label text="{/#Packing/VarisYeri/@sap:label}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "VarisYeri", "columnIndex" : "48"}'/>
+					</t:customData>
+					<t:template>
+						<Input value="{VarisYeri}" editable="{= ${EditLine} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}"/>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="6rem">
+					<Label text="{/#Packing/Inco1/@sap:label}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Inco1", "columnIndex" : "54"}'/>
+					</t:customData>
+					<t:template>
+						<ComboBox items="{/Vh_Inco1Set}" selectedKey="{Inco1}" showSecondaryValues="true"
+							enabled="{= ${EditLine} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}">
+							<core:ListItem key="{Inco1}" text="{Inco1}" additionalText="{Bezei}"/>
+						</ComboBox>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="8rem">
+					<Label text="{/#Packing/YuklemeYeri/@sap:label}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "YuklemeYeri", "columnIndex" : "55"}'/>
+					</t:customData>
+					<t:template>
+						<ComboBox items="{/Vh_YuklemeYeriSet}" selectedKey="{YuklemeYeri}" showSecondaryValues="true"
+							enabled="{= ${EditLine} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}">
+							<core:ListItem key="{Sdabw}" text="{Sdabw}" additionalText="{Bezei}"/>
+						</ComboBox>
+					</t:template>
+				</t:Column>
+				<t:Column hAlign="Center" width="7rem">
+					<Label text="{/#Packing/Zzrezervasyon/@sap:label}"/>
+					<t:customData>
+						<core:CustomData key="p13nData" value='\{"columnKey": "Zzrezervasyon", "columnIndex" : "56"}'/>
+					</t:customData>
+					<t:template>
+						<Input value="{Zzrezervasyon}" editable="{= ${EditLine} &amp;&amp; (${Zzbelgedurumu} === '04' || ${Zzbelgedurumu} === '07')}"/>
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:Table>
+	</st:SmartTable>
+</core:FragmentDefinition>

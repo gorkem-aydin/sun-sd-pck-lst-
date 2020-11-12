@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+	<Dialog contentWidth="45rem">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3"
+					adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:content>
+						<Label text="{i18n>customer}"/>
+						<Text text="{viewModel>/subOrderHeader/Kunnr} - {viewModel>/subOrderHeader/Name1}"/>
+						<Label text="{i18n>model}"/>
+						<Text text="{viewModel>/subOrderHeader/Model} - {viewModel>/subOrderHeader/ModelAdi}"/>
+						<Label text="{i18n>variant}"/>
+						<Text text="{viewModel>/subOrderHeader/Varyant}"/>
+						<Label text="{i18n>mainOrderNo}"/>
+						<Text text="{viewModel>/subOrderHeader/VbelnVa}"/>
+						<!--<Label text="{i18n>packageType}"/>-->
+						<!--<Text text="{viewModel>/subOrderHeader/PaketlemeSekli} - {viewModel>/subOrderHeader/PaketlemeSekliTanim}"/>-->
+						<Label text="{i18n>orderNo}"/>
+						<ComboBox items="{viewModel>/order}" selectionChange="onChangeOrder">
+							<core:Item key="{viewModel>OrderNo}" text="{viewModel>OrderNo}"/>
+						</ComboBox>
+						<Label text="{i18n>subOrders}"/>
+						<MultiComboBox items="{path:'viewModel>/subOrder', sorter: { path: 'viewModel>ZzpaketlemesekliTanim', group: true, ascending:false }}"
+							selectedKeys="{viewModel>/selectedSubOrders}" visible="{= ${viewModel>/subOrder}.length > 0}">
+							<!--	id="multiComboboxSubOrders"-->
+							<core:ListItem key="{viewModel>Posnr}"
+								text="{viewModel>Vbeln} - {viewModel>Posnr} - {viewModel>ZzpaketlemesekliTanim} - {viewModel>ZzaltsiparisdetayTanim}"/>
+						</MultiComboBox>
+					</f:content>
+				</f:SimpleForm>
+			</VBox>
+		</content>
+		<buttons>
+			<Button text="{i18n>sendPrePacking}" type="Transparent" press=".onSendPackingPress('01')"/>
+			<Button text="{i18n>sendPacking}" type="Transparent" press=".onSendPackingPress('02')"/>
+			<Button text="{i18n>cancel}" press=".closeDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

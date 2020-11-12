@@ -1,0 +1,22 @@
+{
+	"busy": false,
+	"editMode": false,
+	"mode": "list",
+	"isRowSelected": false,
+	"footerMode": "orderList",
+	"cekmeTuru": "",
+	"subOrderHeader": {},
+	"order": [],
+	"subOrder": [],
+	"selectedSubOrders": [],
+	"to_SdDocument": [],
+	"answerType": "",
+	"answerPacking": {},
+	"answerPackingEnableMode": true,
+	"confirmAuthority": false,
+	"orderStatus": "",
+	"orderId": "",
+	"packageType": "",
+	"subOrderDetail": "",
+	"exportAuth": false
+}
